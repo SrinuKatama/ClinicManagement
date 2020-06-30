@@ -15,11 +15,11 @@ public class MailUtility implements Serializable {
 	@Autowired
 	JavaMailSender mailsender;
 
-	public void sendMail(Mailobject mailobject) {
+	public void sendMail(Mailobject maildto) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(mailobject.getEmail());
-		message.setSubject(mailobject.getSubject());
-		message.setText(mailobject.getResponse());
+		message.setTo(maildto.getEmail());
+		message.setSubject(maildto.getSubject());
+		message.setText(maildto.getResponse());
 		mailsender.send(message);
 	}
 
