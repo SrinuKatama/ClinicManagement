@@ -49,7 +49,7 @@ public class Patientmodel
 	private boolean isverified;
 
 	@Column
-	private LocalDateTime registrationtime;
+	private LocalDateTime appointmenttime;
 
 		
 }

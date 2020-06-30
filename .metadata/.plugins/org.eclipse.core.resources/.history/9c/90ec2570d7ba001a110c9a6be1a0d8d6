@@ -4,14 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -19,12 +15,9 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Patientmodel
 {
 	@Column
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long patientId;
 
 	@Column
@@ -49,7 +42,6 @@ public class Patientmodel
 	private boolean isverified;
 
 	@Column
-	private LocalDateTime registrationtime;
+	private LocalDateTime appointmenttime;
 
-		
 }
