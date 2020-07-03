@@ -1,0 +1,17 @@
+package com.bridgelabs.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.bridgelabs.model.DoctorModel;
+
+@Repository
+public interface DoctorRepository extends JpaRepository<DoctorModel, Long>
+{
+	DoctorModel findByDoctorName(String name);
+
+	List<DoctorModel> findAll();
+
+}

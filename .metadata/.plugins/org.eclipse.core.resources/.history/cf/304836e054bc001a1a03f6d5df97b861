@@ -1,0 +1,46 @@
+package com.bridgelabs.serviceImplementation;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabs.dto.DoctorDetailsDto;
+import com.bridgelabs.model.DoctorModel;
+import com.bridgelabs.repository.DoctorRepository;
+import com.bridgelabs.service.DoctorService;
+
+public class DoctorServiceImp implements DoctorService
+{
+
+	@Autowired
+	private DoctorRepository doctorRepo; 
+	
+	DoctorModel doc=new DoctorModel();
+	
+	
+	@Override
+	public DoctorModel cerateDoctor(DoctorDetailsDto DoctorDetailsDto) 
+	{
+		DoctorModel details=doctorRepo.findByDoctorName(DoctorDetailsDto);
+		if(details==null)
+		{
+			doc.setAvailabity(DoctorDetailsDto.getAvailabity());
+			doc.setDoctorName(DoctorDetailsDto.getDoctorName());
+			doc.setMobileNumber(DoctorDetailsDto.getMobileNumber());
+			doc.setSpecilization(DoctorDetailsDto.getSpecilization());
+		}
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<DoctorModel> getAllDoctor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+}

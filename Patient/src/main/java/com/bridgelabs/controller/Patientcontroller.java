@@ -14,26 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
-import com.bridgelabs.model.Patientmodel;
+import com.bridgelabs.model.Patient;
 import com.bridgelabs.responses.Responses;
-import com.bridgelabs.serviceimpletation.PatientserviceImp;
+import com.bridgelabs.serviceimpletation.PatientServiceImp;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/patient")
-public class Patientcontroller
+public class PatientController
 {
 	@Autowired
-	private PatientserviceImp patientService;
+	private PatientServiceImp patientService;
 	
 	//API  for registration
 	
 	@PostMapping("/PatientRegistration")
 	@ApiOperation(value = "Patient registration api")
 	public ResponseEntity<Responses> patientRegistration(@RequestBody PatientRegistration PatientRegistration) {
-		Patientmodel result = patientService.addPatient(PatientRegistration);
-		if (result != null) {
+		Patient result = patientService.addPatient(PatientRegistration);
+		if (result == null) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED)
 					.body(new Responses("Successfully registerd", 200, result));
 		} else {
@@ -41,15 +41,27 @@ public class Patientcontroller
 					.body(new Responses("Registration failed", 400, result));
 
 		}
-
+		/*
+		 * public ResponseEntity<Response> addpatient(@Valid @RequestBody PatientDto
+		 * patientDto, BindingResult bindingResult) throws Exception {
+		 * 
+		 * if (bindingResult.hasErrors()) { return
+		 * ResponseEntity.status(HttpStatus.BAD_REQUEST) .body(new
+		 * Response(bindingResult.getAllErrors().get(0).getDefaultMessage())); } else {
+		 * PatientModel patient = service.addpatient(patientDto); return patient != null
+		 * ? ResponseEntity.status(HttpStatus.CREATED).body(new
+		 * Response("registration successfull", 200)) :
+		 * ResponseEntity.status(HttpStatus.ALREADY_REPORTED) .body(new
+		 * Response("patient already exist", 400)); } }
+		 */
 	}
 	
 	// API for login
 	@PostMapping("/PatientLogin")
 	@ApiOperation(value = "Patient login api")
-	public ResponseEntity<Responses> patientlogin(@RequestBody PatientLogin patientLogin)
+	public ResponseEntity<Responses> patientLogin(@RequestBody PatientLogin patientLogin)
 	{
-		String result=patientService.login_Patient(patientLogin);
+		String result=patientService.loginPatient(patientLogin);
 		if(result!=null)
 		{
 			return ResponseEntity.status(HttpStatus.ACCEPTED)
@@ -79,9 +91,9 @@ public class Patientcontroller
 	// API for getting all 
 	@GetMapping(value = "/getAll")
 	@ApiOperation(value = "Getting all patiets")
-	public List<Patientmodel> getAllPatients()
+	public List<Patient> getAllPatients()
 	{
-		return  patientService.getallpatints();
+		return  patientService.getAllPatints();
 		
 		
 	}
@@ -89,9 +101,10 @@ public class Patientcontroller
 	// Getting patient by id
 	
 	@GetMapping(value = "/getpatientbyid/{token}")
-	public ResponseEntity<Responses> gettingpatientbyid(@PathVariable String token)
+	@ApiOperation(value = "Getting patient  by its id")
+	public ResponseEntity<Responses> gettingPatientbyid(@PathVariable String token)
 	{
-		Patientmodel patient=patientService.getpatientById(token);
+		Patient patient=patientService.getPatientById(token);
 		if(patient!=null)
 		{
 			return ResponseEntity.status(HttpStatus.ACCEPTED)
@@ -100,7 +113,7 @@ public class Patientcontroller
 		else
 		{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Responses("Unable to fetch patient data", 200, patient));
+					.body(new Responses("Unable to fetch patient data", 400, patient));
 		}
 		
 	}

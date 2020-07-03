@@ -1,0 +1,52 @@
+package com.bridgelabs.model;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+
+@Entity
+@Table(name = "Patient")
+@Data
+public class Patient
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long patientId;
+
+	private String patientName;
+
+	private int age;
+
+	private int mobilenumber;
+
+	private String disease;
+
+	private String emali;
+
+	private String password;
+
+	private boolean isverified;
+
+	private LocalDateTime registrationtime;
+
+	@Override
+	public String toString() {
+		return "Patient [patientId=" + patientId + ", patientName=" + patientName + ", age=" + age + ", mobilenumber="
+				+ mobilenumber + ", disease=" + disease + ", emali=" + emali + ", password=" + password
+				+ ", isverified=" + isverified + ", registrationtime=" + registrationtime + ", getPatientId()="
+				+ getPatientId() + ", getPatientName()=" + getPatientName() + ", getAge()=" + getAge()
+				+ ", getMobilenumber()=" + getMobilenumber() + ", getDisease()=" + getDisease() + ", getEmali()="
+				+ getEmali() + ", getPassword()=" + getPassword() + ", isIsverified()=" + isIsverified()
+				+ ", getRegistrationtime()=" + getRegistrationtime() + ", hashCode()=" + hashCode() + ", getClass()="
+				+ getClass() + ", toString()=" + super.toString() + "]";
+	}
+
+		
+}
