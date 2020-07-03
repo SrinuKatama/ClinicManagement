@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 import com.bridgelabs.responses.Mailobject;
 
 @Component
-public class MailUtility implements Serializable {
-	/**
-	 * 
-	 */
+public class MailUtility implements Serializable 
+{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	JavaMailSender mailsender;

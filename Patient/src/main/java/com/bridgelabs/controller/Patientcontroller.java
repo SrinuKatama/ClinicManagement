@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
-import com.bridgelabs.model.Patient;
+import com.bridgelabs.model.PatientModel;
 import com.bridgelabs.responses.Responses;
 import com.bridgelabs.serviceimpletation.PatientServiceImp;
 
@@ -32,28 +32,16 @@ public class PatientController
 	@PostMapping("/PatientRegistration")
 	@ApiOperation(value = "Patient registration api")
 	public ResponseEntity<Responses> patientRegistration(@RequestBody PatientRegistration PatientRegistration) {
-		Patient result = patientService.addPatient(PatientRegistration);
-		if (result == null) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED)
+		PatientModel result = patientService.addPatient(PatientRegistration);
+		if (result !=null) {
+			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Responses("Successfully registerd", 200, result));
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new Responses("Registration failed", 400, result));
 
 		}
-		/*
-		 * public ResponseEntity<Response> addpatient(@Valid @RequestBody PatientDto
-		 * patientDto, BindingResult bindingResult) throws Exception {
-		 * 
-		 * if (bindingResult.hasErrors()) { return
-		 * ResponseEntity.status(HttpStatus.BAD_REQUEST) .body(new
-		 * Response(bindingResult.getAllErrors().get(0).getDefaultMessage())); } else {
-		 * PatientModel patient = service.addpatient(patientDto); return patient != null
-		 * ? ResponseEntity.status(HttpStatus.CREATED).body(new
-		 * Response("registration successfull", 200)) :
-		 * ResponseEntity.status(HttpStatus.ALREADY_REPORTED) .body(new
-		 * Response("patient already exist", 400)); } }
-		 */
+		
 	}
 	
 	// API for login
@@ -91,7 +79,7 @@ public class PatientController
 	// API for getting all 
 	@GetMapping(value = "/getAll")
 	@ApiOperation(value = "Getting all patiets")
-	public List<Patient> getAllPatients()
+	public List<PatientModel> getAllPatients()
 	{
 		return  patientService.getAllPatints();
 		
@@ -104,7 +92,7 @@ public class PatientController
 	@ApiOperation(value = "Getting patient  by its id")
 	public ResponseEntity<Responses> gettingPatientbyid(@PathVariable String token)
 	{
-		Patient patient=patientService.getPatientById(token);
+		PatientModel patient=patientService.getPatientById(token);
 		if(patient!=null)
 		{
 			return ResponseEntity.status(HttpStatus.ACCEPTED)

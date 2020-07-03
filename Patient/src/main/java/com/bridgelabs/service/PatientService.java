@@ -4,17 +4,17 @@ import java.util.List;
 
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
-import com.bridgelabs.model.Patient;
+import com.bridgelabs.model.PatientModel;
 
 public interface PatientService {
-	Patient addPatient(PatientRegistration PatientRegistration);
+	PatientModel addPatient(PatientRegistration PatientRegistration);
 
 	String loginPatient(PatientLogin PatientLogin);
 
 	boolean verify(String token);
 
-	List<Patient> getAllPatints();
+	List<PatientModel> getAllPatints();
 
-	Patient getPatientById(String token);
+	PatientModel getPatientById(String token);
 
 }

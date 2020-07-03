@@ -1,13 +1,13 @@
 package com.bridgelabs.Utility;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-@Service
+@Component
 public class JWTutil
 {
 private static final String SECRET = "9886002418";

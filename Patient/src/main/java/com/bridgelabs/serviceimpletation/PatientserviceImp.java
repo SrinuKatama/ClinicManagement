@@ -14,7 +14,7 @@ import com.bridgelabs.Utility.JWTutil;
 import com.bridgelabs.Utility.MailUtility;
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
-import com.bridgelabs.model.Patient;
+import com.bridgelabs.model.PatientModel;
 import com.bridgelabs.repository.PatientRepository;
 import com.bridgelabs.responses.MailResponse;
 import com.bridgelabs.responses.Mailobject;
@@ -43,10 +43,15 @@ public class PatientServiceImp implements PatientService {
 
 	@Override
 	@Transactional
-	public Patient addPatient(PatientRegistration PatientRegistration) {
-		Patient patientmod = new Patient();
-		Optional<Patient> check = patientrepo.findPatientByemail(PatientRegistration.getEmali());
-		if (check == null) {
+	public PatientModel addPatient(PatientRegistration PatientRegistration) {
+		PatientModel patientmod = new PatientModel();
+		Optional<PatientModel> check = patientrepo.findPatientByemail(PatientRegistration.getEmali());
+		if (check.isPresent()) {
+			return null;
+
+		}
+		else
+		{
 			patientmod.setAge(PatientRegistration.getAge());
 			patientmod.setDisease(PatientRegistration.getDisease());
 			patientmod.setEmali(PatientRegistration.getEmali());
@@ -56,6 +61,7 @@ public class PatientServiceImp implements PatientService {
 			String pass = encryption.encode(PatientRegistration.getPassword());
 			patientmod.setPassword(pass);
 			patientrepo.save(patientmod);
+			System.out.println("........After saving the data .........");
 
 			maildto.setEmail(patientmod.getEmali());
 			maildto.setSubject(
@@ -68,14 +74,13 @@ public class PatientServiceImp implements PatientService {
 
 		}
 
-		return null;
 	}
 
 	@Override
 	@Transactional
 	public boolean verify(String token) {
 		Long verify = (long) jwt.parseJWT(token);
-		Patient check = patientrepo.findPatientByid(verify);
+		PatientModel check = patientrepo.findPatientByid(verify);
 		if (check.isIsverified() != true) {
 			check.setIsverified(true);
 			patientrepo.save(check);
@@ -90,7 +95,7 @@ public class PatientServiceImp implements PatientService {
 	@Override
 	@Transactional
 	public String loginPatient(PatientLogin PatientLogin) {
-		Patient check = patientrepo.findPatientByemail(PatientLogin.getEmail()).orElseThrow(null);
+		PatientModel check = patientrepo.findPatientByemail(PatientLogin.getEmail()).orElseThrow(null);
 		
 			if (check.isIsverified() && encryption.matches(PatientLogin.getPassword(), check.getPassword())) 
 			{
@@ -107,17 +112,17 @@ public class PatientServiceImp implements PatientService {
 
 	@Override
 	@Transactional
-	public List<Patient> getAllPatints() {
-		List<Patient> patients = new ArrayList<>();
+	public List<PatientModel> getAllPatints() {
+		List<PatientModel> patients = new ArrayList<>();
 		patientrepo.findAll().forEach(patients::add);
 		return patients;
 	}
 
 	@Override
 	@Transactional
-	public Patient getPatientById(String token) {
+	public PatientModel getPatientById(String token) {
 		Long id = (long) jwt.parseJWT(token);
-		Patient patient = patientrepo.findPatientByid(id);
+		PatientModel patient = patientrepo.findPatientByid(id);
 		return patient;
 	}
 
