@@ -1,0 +1,22 @@
+package com.bridgelabs.serviceimplementation;
+
+import org.springframework.stereotype.Service;
+
+import com.bridgelabs.service.AppointmentService;
+
+@Service
+public class AppointmentServiceImplementation implements  AppointmentService
+{
+	
+
+	@Override
+	public boolean fixAppointment() 
+	{
+		
+		
+		
+		return false;
+	}
+	
+
+}

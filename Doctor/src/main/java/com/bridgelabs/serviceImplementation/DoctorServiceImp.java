@@ -53,6 +53,15 @@ public class DoctorServiceImp implements DoctorService
 		return allDoctors;
 	}
 
+	@Override
+	@Transactional
+	public List<DoctorModel> findDoctorBySpetilization(DoctorDetailsDto DoctorDetailsDto)
+	{
+		List<DoctorModel> allDoctors=new ArrayList<>();
+		doctorRepo.findDoctorBySpecialization(DoctorDetailsDto.getSpecilization()).forEach(allDoctors::add);
+		return allDoctors;
+	}
+
 	
 
 }

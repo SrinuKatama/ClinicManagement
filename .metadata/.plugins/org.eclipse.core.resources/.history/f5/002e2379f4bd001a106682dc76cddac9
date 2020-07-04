@@ -1,0 +1,46 @@
+package com.bridgelabs.serviceimplementation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.bridgelabs.repository.AppointmentRepository;
+import com.bridgelabs.responses.Responses;
+import com.bridgelabs.service.AppointmentService;
+
+@Service
+public class AppointmentServiceImplementation implements  AppointmentService
+{
+	@Autowired
+	private RestTemplate resttemplate;
+	
+	@Autowired
+	private AppointmentRepository repo;
+	
+	@Autowired
+	private Responses response;
+	 
+	
+	public Responses getPatient(String token)
+	{
+		resttemplate.getForEntity("http://localhost:8084/getpatientbyid/{token}"+token, Responses.class);
+		return response;
+		
+	}
+	
+	public Responses getDoctor(String specialization)
+	{
+		resttemplate.getForEntity("http://localhost:8086/get doctor by specialization"+specialization,Responses.class);
+		return response;
+	}
+
+	@Override
+	public boolean fixAppointment() 
+	{
+		
+		
+		return false;
+	}
+	
+
+}

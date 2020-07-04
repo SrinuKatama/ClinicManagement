@@ -23,6 +23,8 @@ public class DoctorController
 	@Autowired
 	private DoctorServiceImp docterserv;
 	
+	
+	//API for Adding the doctors
 	@PutMapping(value = "/createDoctor")
 	public ResponseEntity<Responses> addDoctors(@RequestBody DoctorDetailsDto DoctorDetailsDto)
 	{ 
@@ -39,6 +41,8 @@ public class DoctorController
 		
 	}
 	
+	
+	// API for Get all the doctors
 	@GetMapping(value = "/getallDoctors")
 	public ResponseEntity<Responses> getAllDoctors()
 	{
@@ -54,6 +58,24 @@ public class DoctorController
 
 		}
 		
+	}
+	
+	//API for get the doctor by his specialization
+	
+	@GetMapping(value = "/get doctor by specialization")
+	public ResponseEntity<Responses> getTheDOctorBySpeciallization()
+	{
+		List<DoctorModel> all =docterserv.getAllDoctor();
+		if(all!=null)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responses("all doctors fecthed based on specialiation", 200, all));
+
+		}
+		else
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(new Responses("Unable to fectch", 400, all));
+
+		}
 	}
 	
 	

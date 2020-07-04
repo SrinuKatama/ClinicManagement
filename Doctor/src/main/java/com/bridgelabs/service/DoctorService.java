@@ -9,5 +9,6 @@ public interface DoctorService
 {
 	DoctorModel cerateDoctor(DoctorDetailsDto DoctorDetailsDto);
 	List<DoctorModel> getAllDoctor();
+	List<DoctorModel> findDoctorBySpetilization(DoctorDetailsDto DoctorDetailsDto);
 
 }

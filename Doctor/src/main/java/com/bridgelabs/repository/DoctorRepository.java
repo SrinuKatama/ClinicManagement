@@ -16,5 +16,8 @@ public interface DoctorRepository extends JpaRepository<DoctorModel, Long>
 
 	@Query(value = "select * from doctor_model " ,nativeQuery = true)
 	List<DoctorModel> findAll();
+	
+	@Query(value = "select * from doctor_model where specilization=?",nativeQuery = true)
+	List<DoctorModel> findDoctorBySpecialization(String name);
 
 }
