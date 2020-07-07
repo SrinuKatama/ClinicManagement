@@ -1,5 +1,6 @@
 package com.bridgelabs.responses;
 
+
 public class Responses {
 	private String message;
 	private int statusCode;

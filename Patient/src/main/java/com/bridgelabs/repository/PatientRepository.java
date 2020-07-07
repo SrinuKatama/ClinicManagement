@@ -18,6 +18,9 @@ public interface PatientRepository extends JpaRepository<PatientModel, Long>
 
 	@Query(value = "select * from patient_model where patient_id=?",nativeQuery = true)
 	PatientModel findPatientByid(long id);
+	
+	@Query(value = "select * from patient_model where patient_name=?1",nativeQuery = true)
+	PatientModel getPatientByName(String name);
 
 	List<PatientModel> findAll();
 	

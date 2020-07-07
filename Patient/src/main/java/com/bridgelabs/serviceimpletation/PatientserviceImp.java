@@ -14,6 +14,7 @@ import com.bridgelabs.Utility.JWTutil;
 import com.bridgelabs.Utility.MailUtility;
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
+import com.bridgelabs.exception.UserException;
 import com.bridgelabs.model.PatientModel;
 import com.bridgelabs.repository.PatientRepository;
 import com.bridgelabs.responses.MailResponse;
@@ -123,6 +124,14 @@ public class PatientServiceImp implements PatientService {
 	public PatientModel getPatientById(String token) {
 		Long id = (long) jwt.parseJWT(token);
 		PatientModel patient = patientrepo.findPatientByid(id);
+		return patient;
+	}
+
+	@Override
+	@Transactional
+	public PatientModel getPatientByName(String name) throws UserException
+	{
+		PatientModel patient=patientrepo.getPatientByName(name);
 		return patient;
 	}
 

@@ -55,10 +55,10 @@ public class DoctorServiceImp implements DoctorService
 
 	@Override
 	@Transactional
-	public List<DoctorModel> findDoctorBySpetilization(DoctorDetailsDto DoctorDetailsDto)
+	public List<DoctorModel> findDoctorBySpetilization(String diesease)
 	{
 		List<DoctorModel> allDoctors=new ArrayList<>();
-		doctorRepo.findDoctorBySpecialization(DoctorDetailsDto.getSpecilization()).forEach(allDoctors::add);
+		doctorRepo.findDoctorBySpecialization(diesease).forEach(allDoctors::add);
 		return allDoctors;
 	}
 

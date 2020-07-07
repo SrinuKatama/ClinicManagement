@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
+import com.bridgelabs.exception.UserException;
 import com.bridgelabs.model.PatientModel;
 import com.bridgelabs.responses.Responses;
 import com.bridgelabs.serviceimpletation.PatientServiceImp;
@@ -105,5 +106,25 @@ public class PatientController
 		}
 		
 	}
+	
+	// Getting patient by name 
+	
+	@GetMapping(value = "/gettigbyname/{name}")
+	@ApiOperation(value = "Getting patient by name")
+	public ResponseEntity<Responses> gettingPatientbyname(@PathVariable String name) throws UserException
+	{
+		PatientModel patient=patientService.getPatientByName(name);
+		if(patient!=null)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED)
+					.body(new Responses("Patient fecthed uccessfully", 200, patient));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body(new Responses("Unable to fetch patient data", 400, patient));
+
+	}
+
+	
+	
 
 }

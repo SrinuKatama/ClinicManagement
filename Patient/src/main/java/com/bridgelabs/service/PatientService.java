@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bridgelabs.dto.PatientLogin;
 import com.bridgelabs.dto.PatientRegistration;
+import com.bridgelabs.exception.UserException;
 import com.bridgelabs.model.PatientModel;
 
 public interface PatientService {
@@ -16,5 +17,7 @@ public interface PatientService {
 	List<PatientModel> getAllPatints();
 
 	PatientModel getPatientById(String token);
+	
+	PatientModel getPatientByName(String name) throws UserException;
 
 }

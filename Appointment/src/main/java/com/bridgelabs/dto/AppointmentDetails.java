@@ -1,12 +1,11 @@
+
 package com.bridgelabs.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-
 import lombok.Data;
 
-@Entity
+
 @Data
 public class AppointmentDetails 
 {

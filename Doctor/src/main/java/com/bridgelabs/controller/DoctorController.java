@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import com.bridgelabs.dto.DoctorDetailsDto;
 import com.bridgelabs.model.DoctorModel;
 import com.bridgelabs.responces.Responses;
 import com.bridgelabs.serviceImplementation.DoctorServiceImp;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/doctor")
@@ -62,10 +65,11 @@ public class DoctorController
 	
 	//API for get the doctor by his specialization
 	
-	@GetMapping(value = "/get doctor by specialization")
-	public ResponseEntity<Responses> getTheDOctorBySpeciallization()
+	@GetMapping(value = "/getdoctorbyspecialization/{name}")
+	@ApiOperation(value = "get doctor by his spetialization")
+	public ResponseEntity<Responses> getTheDOctorBySpeciallization(@PathVariable String name)
 	{
-		List<DoctorModel> all =docterserv.getAllDoctor();
+		List<DoctorModel> all =docterserv.findDoctorBySpetilization(name);
 		if(all!=null)
 		{
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responses("all doctors fecthed based on specialiation", 200, all));

@@ -1,5 +1,8 @@
 package com.bridgelabs.serviceimplementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,55 +14,65 @@ import com.bridgelabs.responses.Responses;
 import com.bridgelabs.service.AppointmentService;
 
 @Service
-public class AppointmentServiceImplementation implements  AppointmentService
-{
+public class AppointmentServiceImplementation implements AppointmentService {
 	@Autowired
 	private RestTemplate resttemplate;
-	
+
 	@Autowired
 	private AppointmentRepository repo;
-	
+
 	/*
 	 * @Autowired private Responses response;
 	 */
-	 
-	
-	public Responses getPatient(String token)
-	{
-		Responses patientresponse=resttemplate.getForEntity("http://localhost:8084/getpatientbyid/{token}"+token, Responses.class).getBody();
-		return patientresponse;
+
+	public boolean getPatient(String name) {
+		resttemplate.getForEntity("http://localhost:8084/patient/gettigbyname/" +name, Responses.class).getBody();
+		return true;
+	}
+
+	public boolean getDoctor(String specialization) {
+		
+		 resttemplate.getForEntity("http://localhost:8086/doctor/getdoctorbyspecialization/" + specialization, Responses.class)
+				.getBody();
+		return true;
 	}
 	
-	public Responses getDoctor(String specialization)
-	{
-		Responses doctorresponse=resttemplate.getForEntity("http://localhost:8086/get doctor by specialization"+specialization,Responses.class).getBody();
-		return doctorresponse;
+	public Responses getDoctor1(String specialization) {
+		System.out.println("in getDoctor1");
+		Responses data= resttemplate.getForEntity("http://localhost:8086/doctor/getdoctorbyspecialization/" + specialization, Responses.class)
+				.getBody();
+		System.out.println(data);
+		return data;
+		
+	}
+	
+	
+
+	@Override
+	public boolean fixAppointment(String name, String specialization, AppointmentDetails AppointmentDetails) {
+		AppointmentModel appompdel = new AppointmentModel();
+		Responses sri3=getDoctor1(specialization);
+		boolean sri=getDoctor(specialization);
+		boolean sri2= getPatient(name);
+		if (sri == true && sri2==true) {
+			appompdel.setAppointmentFixedtime(AppointmentDetails.getAppointmentTime());
+			appompdel.setDoctorName(AppointmentDetails.getDoctorName());
+			appompdel.setPatientName(AppointmentDetails.getPatientName());
+			repo.save(appompdel);
+			return true;
+
+		} else {
+			return false;
+
+		}
+
 	}
 
 	@Override
-	public boolean fixAppointment(String token,String specialization,AppointmentDetails AppointmentDetails) 
-	{
-		AppointmentModel appompdel=new AppointmentModel();
-		
-		
-			if(getDoctor(specialization)!=null && getPatient(token)!=null)
-			{
-				appompdel.setAppointmentFixedtime(AppointmentDetails.getAppointmentTime());
-				appompdel.setDoctorName(AppointmentDetails.getDoctorName());
-				appompdel.setPatientName(AppointmentDetails.getPatientProblem());
-				repo.save(appompdel);
-				return true;
-				
-			}
-			else
-			{
-				return false;
-
-			}
-		
-		
-
+	public List<AppointmentModel> getAllAppointments() {
+		List<AppointmentModel> allAppointments = new ArrayList<>();
+		repo.findAll().forEach(allAppointments::add);
+		return allAppointments;
 	}
-	
 
 }
