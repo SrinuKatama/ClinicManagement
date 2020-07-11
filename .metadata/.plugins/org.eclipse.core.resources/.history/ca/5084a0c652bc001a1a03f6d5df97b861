@@ -1,5 +1,0 @@
-package com.bridgelabs.repository;
-
-public interface DoctorRepository {
-
-}

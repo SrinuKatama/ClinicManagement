@@ -29,10 +29,11 @@ public class DoctorServiceImp implements DoctorService
 		DoctorModel details=doctorRepo.findByDoctorName(DoctorDetailsDto.getDoctorName());
 		if(details==null)
 		{
-			doc.setAvailabity(DoctorDetailsDto.getAvailabity());
+			//doc.setAvailabilitydate(DoctorDetailsDto.getAvailabilitydate());
 			doc.setDoctorName(DoctorDetailsDto.getDoctorName());
 			doc.setMobileNumber(DoctorDetailsDto.getMobileNumber());
 			doc.setSpecilization(DoctorDetailsDto.getSpecilization());
+			
 			doctorRepo.save(doc);
 			return doc;
 		}else
@@ -61,6 +62,17 @@ public class DoctorServiceImp implements DoctorService
 		doctorRepo.findDoctorBySpecialization(diesease).forEach(allDoctors::add);
 		return allDoctors;
 	}
+
+	@Override
+	public String getDoctorbyname(String name) 
+	{
+
+		String doc=doctorRepo.findDoctorByName(name);
+		return doc;
+	}
+	
+	
+	
 
 	
 

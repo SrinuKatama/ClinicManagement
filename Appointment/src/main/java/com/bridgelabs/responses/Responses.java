@@ -48,5 +48,12 @@ public class Responses {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Responses [message=" + message + ", statusCode=" + statusCode + ", details=" + details + "]";
+	}
+	
+	
+
 }
 

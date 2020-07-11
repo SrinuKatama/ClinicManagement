@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabs.dto.AppointmentDetails;
+import com.bridgelabs.dto.AppointmentSlots;
 import com.bridgelabs.model.AppointmentModel;
 import com.bridgelabs.responses.Responses;
 import com.bridgelabs.serviceimplementation.AppointmentServiceImplementation;

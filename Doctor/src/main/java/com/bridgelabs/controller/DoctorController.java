@@ -82,6 +82,24 @@ public class DoctorController
 		}
 	}
 	
+	@GetMapping(value =  "/getdoctorbyname/{name}")
+	@ApiOperation(value = "get doctor by his name")
+	public ResponseEntity<Responses> getDoctorByName(@PathVariable String name)
+	{
+		String result=docterserv.getDoctorbyname(name);
+		if(result!=null)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responses("doctor fecthed by his name", 200, result));
+
+		}
+		else
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(new Responses("Unable to fectch", 400, result));
+
+		}
+		
+	}
+	
 	
 	
 
