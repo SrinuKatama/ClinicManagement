@@ -1,5 +1,0 @@
-package com.bridgelabs.service;
-
-public interface AppointmentService {
-
-}

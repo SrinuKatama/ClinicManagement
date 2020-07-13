@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabs.dto.AppointmentDetails;
-import com.bridgelabs.dto.AppointmentSlots;
 import com.bridgelabs.model.AppointmentModel;
 import com.bridgelabs.responses.Responses;
 import com.bridgelabs.serviceimplementation.AppointmentServiceImplementation;
@@ -27,12 +26,12 @@ public class AppointmentController
 	@Autowired
 	private AppointmentServiceImplementation serve;
 	
-	@PutMapping(value = "/forfixingappointment/{name}/{specialization}")
+	@PutMapping(value = "/forfixingappointment/{name}/{specialization}/{docName}")
 	@ApiOperation(value = "Appointment api")
-	public ResponseEntity<Responses> forFixAppointment(@PathVariable String name,@PathVariable String specialization,
+	public ResponseEntity<Responses> forFixAppointment(@PathVariable String name,@PathVariable String specialization,@PathVariable String docName,
 			@RequestBody AppointmentDetails AppointmentDetails)
 	{
-		boolean result=serve.fixAppointment(name, specialization, AppointmentDetails);
+		boolean result=serve.fixAppointment(name,docName, specialization, AppointmentDetails);
 		if(result == true)
 		{
 			return ResponseEntity.status(HttpStatus.CREATED).body(new Responses("Appointment done successfully", 200, result));

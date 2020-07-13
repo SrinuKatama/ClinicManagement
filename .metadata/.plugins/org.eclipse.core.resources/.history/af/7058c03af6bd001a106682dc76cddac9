@@ -1,7 +1,0 @@
-package com.bridgelabs.service;
-
-public interface AppointmentService 
-{
-	public boolean fixAppointment();
-
-}

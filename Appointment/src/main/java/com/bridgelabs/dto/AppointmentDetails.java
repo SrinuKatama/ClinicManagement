@@ -12,7 +12,7 @@ public class AppointmentDetails {
 	private String specialization;
 	private String doctorName;
 	private String patientName;
-	private boolean isbook;
+	//private boolean isbook;
 	
 	
 

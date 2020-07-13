@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka=4
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka=5
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.cloud-eureka-server=1
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=DiscoveryServer
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.bootVersion=2.3.2.BUILD-SNAPSHOT
