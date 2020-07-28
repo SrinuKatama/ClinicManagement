@@ -15,19 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabs.dto.AppointmentDetails;
 import com.bridgelabs.model.AppointmentModel;
 import com.bridgelabs.responses.Responses;
-import com.bridgelabs.serviceimplementation.AppointmentServiceImplementation;
+import com.bridgelabs.service.AppointmentService;
 
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "appointment")
 public class AppointmentController
 {
 	@Autowired
-	private AppointmentServiceImplementation serve;
+	private AppointmentService serve;
 	
-	@PutMapping(value = "/forfixingappointment/{name}/{specialization}/{docName}")
-	@ApiOperation(value = "Appointment api")
+	@PutMapping(value = "/fixingAppointment/{name}/{specialization}/{docName}")
 	public ResponseEntity<Responses> forFixAppointment(@PathVariable String name,@PathVariable String specialization,@PathVariable String docName,
 			@RequestBody AppointmentDetails AppointmentDetails)
 	{
@@ -46,8 +44,7 @@ public class AppointmentController
 	
 	//API for all appointments
 	
-	@GetMapping(value = "/forgettingallappointments")
-	@ApiOperation(value = "All appointment api")
+	@GetMapping(value = "/allAppointments")
 	public ResponseEntity<Responses> forGettigAllAppointments()
 	{
 		List<AppointmentModel> result=serve.getAllAppointments();

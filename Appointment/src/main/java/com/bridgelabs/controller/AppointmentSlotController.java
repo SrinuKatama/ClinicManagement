@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabs.dto.AppointmentSlots;
 import com.bridgelabs.model.AppointmetSlotsModel;
 import com.bridgelabs.responses.Responses;
-import com.bridgelabs.serviceimplementation.AppointmentSlotServicedimp;
+import com.bridgelabs.service.AppointmentSlotService;
 
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/slot")
 public class AppointmentSlotController
 {
 	@Autowired
-	private AppointmentSlotServicedimp seve;
+	private AppointmentSlotService seve;
 	
 	
 	// API for creation of doctorsslots
-	@PutMapping(value = "/slotcreation/{docname}")
-	@ApiOperation(value = "Doctors slot creation")
+	
+	
+	@PutMapping(value = "/slotCreation/{docname}")
 	public ResponseEntity<Responses> createSlotsForDoctor( @PathVariable String docname,@RequestBody AppointmentSlots AppointmentSlots)
 	{
 		AppointmetSlotsModel result=seve.createSlotsforDoctor(AppointmentSlots,docname );

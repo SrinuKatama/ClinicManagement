@@ -40,13 +40,13 @@ public class AppointmentServiceImplementation implements AppointmentService {
 		return true;
 	}
 
-	// this method is for getting the doctor name form doctortable
+     // this method is for getting the doctor name form doctortable
 
 	public String getDoctorByname1(String name) {
 		String ss = resttemplate.getForEntity("http://localhost:8086/doctor/getdoctorbyname/" + name, String.class)
 				.getBody();
 		return ss;
-	}
+	} 
 
 	@Override
 	public boolean fixAppointment(String name, String docname, String specialization,
@@ -62,11 +62,14 @@ public class AppointmentServiceImplementation implements AppointmentService {
 		String as3 = apposlotrepo.slot3(docrepores);
 
 		if (docSpecialization == true && patiet == true) {
+			System.out.println("*...........1............*");
 			boolean result1 = apposlotrepo.slolt1availability(docrepores);
 			boolean result2 = apposlotrepo.slolt2availability(docrepores);
 			boolean result3 = apposlotrepo.slolt1availability(docrepores);
 
 			if (result1 == true) {
+				System.out.println("*...........2............*");
+
 				appompdel.setDoctorName(AppointmentDetails.getDoctorName());
 				appompdel.setPatientName(AppointmentDetails.getPatientName());
 				appompdel.setSlot(as1);
@@ -79,15 +82,18 @@ public class AppointmentServiceImplementation implements AppointmentService {
 			}
 
 			else if (result2 == true) {
+				System.out.println("*...........3............*");
+
 				appompdel.setDoctorName(AppointmentDetails.getDoctorName());
 				appompdel.setPatientName(AppointmentDetails.getPatientName());
 				appompdel.setSlot(as2);
 				appompdel.setIsbook(false);
 				repo.save(appompdel);
 				apposlotrepo.afterslot2(docrepores);
-
 				return true;
 			} else if (result3 == true) {
+				System.out.println("*...........4............*");
+
 				appompdel.setDoctorName(AppointmentDetails.getDoctorName());
 				appompdel.setPatientName(AppointmentDetails.getPatientName());
 				appompdel.setSlot(as3);

@@ -17,21 +17,19 @@ import com.bridgelabs.dto.PatientRegistration;
 import com.bridgelabs.exception.UserException;
 import com.bridgelabs.model.PatientModel;
 import com.bridgelabs.responses.Responses;
-import com.bridgelabs.serviceimpletation.PatientServiceImp;
+import com.bridgelabs.service.PatientService;
 
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/patient")
 public class PatientController
 {
 	@Autowired
-	private PatientServiceImp patientService;
+	private PatientService patientService;
 	
 	//API  for registration
 	
-	@PostMapping("/PatientRegistration")
-	@ApiOperation(value = "Patient registration api")
+	@PostMapping("/patientRegistration")
 	public ResponseEntity<Responses> patientRegistration(@RequestBody PatientRegistration PatientRegistration) {
 		PatientModel result = patientService.addPatient(PatientRegistration);
 		if (result !=null) {
@@ -46,8 +44,7 @@ public class PatientController
 	}
 	
 	// API for login
-	@PostMapping("/PatientLogin")
-	@ApiOperation(value = "Patient login api")
+	@PostMapping("/patientLogin")
 	public ResponseEntity<Responses> patientLogin(@RequestBody PatientLogin patientLogin)
 	{
 		String result=patientService.loginPatient(patientLogin);
@@ -67,7 +64,6 @@ public class PatientController
 	// API for verification purpose
 	
 	@GetMapping(value = "/verify/{token}")
-	@ApiOperation(value = "token verification")
 	public ResponseEntity<Responses> verify(@PathVariable String token)
 	{
 		boolean result=patientService.verify(token);
@@ -78,8 +74,7 @@ public class PatientController
 	}
 	
 	// API for getting all 
-	@GetMapping(value = "/getAll")
-	@ApiOperation(value = "Getting all patiets")
+	@GetMapping(value = "/allPatient")
 	public List<PatientModel> getAllPatients()
 	{
 		return  patientService.getAllPatints();
@@ -89,8 +84,7 @@ public class PatientController
 	
 	// Getting patient by id
 	
-	@GetMapping(value = "/getpatientbyid/{token}")
-	@ApiOperation(value = "Getting patient  by its id")
+	@GetMapping(value = "/patientbyId/{token}")
 	public ResponseEntity<Responses> gettingPatientbyid(@PathVariable String token)
 	{
 		PatientModel patient=patientService.getPatientById(token);
@@ -109,8 +103,7 @@ public class PatientController
 	
 	// Getting patient by name 
 	
-	@GetMapping(value = "/gettigbyname/{name}")
-	@ApiOperation(value = "Getting patient by name")
+	@GetMapping(value = "/patietByName/{name}")
 	public ResponseEntity<Responses> gettingPatientbyname(@PathVariable String name) throws UserException
 	{
 		PatientModel patient=patientService.getPatientByName(name);

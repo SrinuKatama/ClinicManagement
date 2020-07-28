@@ -30,13 +30,13 @@ public interface AppointmentSlotsRepository extends JpaRepository<AppointmetSlot
 	@Query(value = "select slot3 from appointmet_slots_model where doctor_name =?", nativeQuery = true)
 	public String slot3(String doctorName);
 	
-	@Query(value = "UPDATE appointmet_slots_model SET slot1availability = false WHERE  doctor_name=?")
+	@Query(value = "UPDATE appointmet_slots_model SET slot1availability = false WHERE  doctor_name=?",nativeQuery = true)
 	public boolean afterslot1(String doctorName);
 	
-	@Query(value = "UPDATE appointmet_slots_model SET slot2availability = false WHERE  doctor_name=?")
+	@Query(value = "UPDATE appointmet_slots_model SET slot2availability = false WHERE  doctor_name=?",nativeQuery = true)
 	public boolean afterslot2(String doctorName);
 	
-	@Query(value = "UPDATE appointmet_slots_model SET slot3availability = false WHERE  doctor_name=?")
+	@Query(value = "UPDATE appointmet_slots_model SET slot3availability = false WHERE  doctor_name=?",nativeQuery = true)
 	public boolean afterslot3(String doctorName);
 	
 	

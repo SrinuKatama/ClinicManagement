@@ -15,16 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabs.dto.DoctorDetailsDto;
 import com.bridgelabs.model.DoctorModel;
 import com.bridgelabs.responces.Responses;
-import com.bridgelabs.serviceImplementation.DoctorServiceImp;
+import com.bridgelabs.service.DoctorService;
 
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/doctor")
 public class DoctorController 
 {
 	@Autowired
-	private DoctorServiceImp docterserv;
+	private DoctorService docterserv;  
 	
 	
 	//API for Adding the doctors
@@ -46,7 +45,7 @@ public class DoctorController
 	
 	
 	// API for Get all the doctors
-	@GetMapping(value = "/getallDoctors")
+	@GetMapping(value = "/allDoctors")
 	public ResponseEntity<Responses> getAllDoctors()
 	{
 		List<DoctorModel> all=docterserv.getAllDoctor();
@@ -65,8 +64,7 @@ public class DoctorController
 	
 	//API for get the doctor by his specialization
 	
-	@GetMapping(value = "/getdoctorbyspecialization/{name}")
-	@ApiOperation(value = "get doctor by his spetialization")
+	@GetMapping(value = "/doctorBySpecialization/{name}")
 	public ResponseEntity<Responses> getTheDOctorBySpeciallization(@PathVariable String name)
 	{
 		List<DoctorModel> all =docterserv.findDoctorBySpetilization(name);
@@ -82,8 +80,7 @@ public class DoctorController
 		}
 	}
 	
-	@GetMapping(value =  "/getdoctorbyname/{name}")
-	@ApiOperation(value = "get doctor by his name")
+	@GetMapping(value =  "/doctorByName/{name}")
 	public ResponseEntity<Responses> getDoctorByName(@PathVariable String name)
 	{
 		String result=docterserv.getDoctorbyname(name);
