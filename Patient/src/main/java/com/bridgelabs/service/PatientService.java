@@ -8,9 +8,9 @@ import com.bridgelabs.exception.UserException;
 import com.bridgelabs.model.PatientModel;
 
 public interface PatientService {
-	PatientModel addPatient(PatientRegistration PatientRegistration);
+	PatientModel addPatient(PatientRegistration PatientRegistration) throws UserException;
 
-	String loginPatient(PatientLogin PatientLogin);
+	String loginPatient(PatientLogin PatientLogin) throws UserException;
 
 	boolean verify(String token);
 

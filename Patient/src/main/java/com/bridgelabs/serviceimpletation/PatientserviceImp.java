@@ -29,7 +29,8 @@ public class PatientServiceImp implements PatientService {
 
 	@Autowired
 	private JWTutil jwt;
-
+	
+	
 	@Autowired
 	private BCryptPasswordEncoder encryption;
 
@@ -43,12 +44,13 @@ public class PatientServiceImp implements PatientService {
 	private MailUtility mailutility;
 
 	@Override
-	@Transactional
-	public PatientModel addPatient(PatientRegistration PatientRegistration) {
+	@Transactional 
+	public PatientModel addPatient(PatientRegistration PatientRegistration) throws UserException {
 		PatientModel patientmod = new PatientModel();
 		Optional<PatientModel> check = patientrepo.findPatientByemail(PatientRegistration.getEmali());
 		if (check.isPresent()) {
-			return null;
+
+			throw new UserException("User already exist database won't accept", 400);
 
 		}
 		else
@@ -62,8 +64,7 @@ public class PatientServiceImp implements PatientService {
 			String pass = encryption.encode(PatientRegistration.getPassword());
 			patientmod.setPassword(pass);
 			patientrepo.save(patientmod);
-			System.out.println("........After saving the data .........");
-
+			
 			maildto.setEmail(patientmod.getEmali());
 			maildto.setSubject(
 					"this mail sent by admin srinivas to check" + patientmod.getPatientName() + "is authorised or not");
@@ -88,6 +89,7 @@ public class PatientServiceImp implements PatientService {
 			return true;
 		} else {
 			return false;
+			
 
 		}
 
@@ -95,8 +97,9 @@ public class PatientServiceImp implements PatientService {
 
 	@Override
 	@Transactional
-	public String loginPatient(PatientLogin PatientLogin) {
-		PatientModel check = patientrepo.findPatientByemail(PatientLogin.getEmail()).orElseThrow(null);
+	public String loginPatient(PatientLogin PatientLogin) throws UserException {
+		PatientModel check = patientrepo.findPatientByemail(PatientLogin.getEmail()).
+				orElseThrow(() -> new UserException("Invalid credentials",400));
 		
 			if (check.isIsverified() && encryption.matches(PatientLogin.getPassword(), check.getPassword())) 
 			{

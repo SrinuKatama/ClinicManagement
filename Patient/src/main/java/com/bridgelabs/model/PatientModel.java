@@ -10,13 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.ToString;
-
 
 @Entity
 @Table(name = "patient_model")
 @Data
-@ToString
 public class PatientModel
 {
 	@Id
