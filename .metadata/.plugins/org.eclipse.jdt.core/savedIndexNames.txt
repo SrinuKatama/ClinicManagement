@@ -174,7 +174,6 @@ INDEX VERSION 1.131+C:\ClinicalManagement\.metadata\.plugins\org.eclipse.jdt.cor
 3534474599.index
 837660181.index
 688221774.index
-799017193.index
 4230687844.index
 3916901864.index
 789066391.index
